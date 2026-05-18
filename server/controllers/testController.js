@@ -7,19 +7,24 @@ const authPass = process.env.EMAIL_PASS || process.env.SMTP_KEY || process.env.S
 
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
-  port: 465,
-  secure: true, // Force SSL/TLS connection
+  port: 587,
+  secure: false,
+
   auth: {
     user: authUser,
     pass: authPass,
   },
-  tls: {
-    rejectUnauthorized: false // Bypasses strict cloud firewall SSL checks
-  },
-  connectionTimeout: 10000, // Fail fast in 10 seconds instead of hanging for 2 minutes
-  socketTimeout: 15000,
-});
 
+  tls: {
+    rejectUnauthorized: false,
+  },
+
+  family: 4, // ✅ FORCE IPV4
+
+  connectionTimeout: 20000,
+  greetingTimeout: 10000,
+  socketTimeout: 20000,
+});
 // ================= CREATE TEST =================
 exports.createTest = async (req, res) => {
   try {
