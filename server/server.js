@@ -11,18 +11,12 @@ const materialRoutes = require("./routes/materialRoutes");
 // const paymentRoutes = require("./routes/paymentRoutes");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
-const app = express();
+const cors = require("cors");
 
-// ================= MIDDLEWARE =================
-app.use(
-  cors({
-    origin: [
-      "https://gurukul-mock-test.vercel.app",
-      "http://localhost:5173"
-    ],
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: "https://gugukul.vercel.app",
+  credentials: true
+}));
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
